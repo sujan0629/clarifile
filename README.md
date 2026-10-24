@@ -1,74 +1,26 @@
-# How to Run the QML File
+# Clarifile
 
-This project contains QML files that can be run using Qt's `qmlscene` tool or inside Qt Creator.
+A Qt desktop application for organizing files, selecting folders, cleaning junk files, and exploring file-shredding workflows. QML defines the interface; C++ supplies the file-system operations.
 
----
+![Clarifile desktop interface](images/GUI_new.png)
 
-## Primary Method (Recommended)
+## Architecture
 
-### Run using full path to `qmlscene`
+- [main.qml](Clarifile/main.qml) composes the desktop interface.
+- [main.cpp](Clarifile/main.cpp) registers the C++ objects exposed to QML.
+- [fileorganizer.cpp](Clarifile/fileorganizer.cpp), [PathManager.cpp](Clarifile/PathManager.cpp), [junkcleaner.cpp](Clarifile/junkcleaner.cpp), and [fileshredder.cpp](Clarifile/fileshredder.cpp) implement file operations.
+- [FileOrganizerShredder.pro](Clarifile/FileOrganizerShredder.pro) is the qmake application project.
 
-Open your terminal or command prompt in the folder where `main.qml` is located and run:
+## Build and run
 
-```bash
-"path-to-Qt-bin-folder/qmlscene.exe" main.qml
-````
+1. Install Qt 6 with a desktop compiler kit and the Core, GUI, Widgets, SQL, QML, Quick, QuickDialogs2, and SVG modules used by the project.
+2. Open `Clarifile/FileOrganizerShredder.pro` in Qt Creator.
+3. Select your own installed kit and a fresh build directory, then build and run the application. The repository contains old local build/Qt Creator files; do not rely on their absolute paths or prebuilt outputs.
 
-> This runs your QML file directly using the Qt executable. Use this if you have not added Qt's bin folder to your system PATH.
+Launching the QML file alone with qmlscene does not register the C++ context objects, so use the compiled application for the complete interface.
 
----
+## Trying file operations
 
-## Alternative Methods
+Use a temporary folder containing disposable copies while exploring the organizer, cleaner, and shredder. Deletion changes real files. The shredding implementation does not establish a secure-erasure guarantee across SSDs, snapshots, backups, or different file systems.
 
-### Alternative 1: Run using `qmlscene` if added to system PATH
-
-If you have added your Qt installation's `bin` folder to your system PATH, simply run:
-
-```bash
-qmlscene main.qml
-```
-
-No need to type the full path, because your system will find `qmlscene.exe` automatically.
-
----
-
-### Alternative 2: Run using `qml` command (if available)
-
-Some Qt installations provide the `qml` command as an alternative to `qmlscene`. You can try running:
-
-```bash
-qml main.qml
-```
-
-> Note: This command might not be available in all Qt versions; `qmlscene` is the standard and preferred tool.
-
----
-
-### Alternative 3: Run inside Qt Creator IDE
-
-1. Open **Qt Creator**.
-2. Open this project folder or create a new Qt Quick project.
-3. Add `main.qml` to the project (if not already added).
-4. Press the **Run** button (green triangle) or press `Ctrl + R`.
-
-Qt Creator will automatically use the right tools to run your QML file.
-
----
-
-### Alternative 4: Run via a Qt Quick C++ Application
-
-Create a minimal Qt C++ application that loads and runs your QML file. Build and run this app from Qt Creator or your build system.
-
----
-
-## Notes
-
-* Adding Qt’s `bin` directory to your system PATH simplifies running commands like `qmlscene`.
-* Replace the path `"path-to-Qt-bin-folder/qmlscene.exe"` with the actual path on your system.
-* Use double quotes for Windows paths containing spaces.
-
-```
-```
-
-### GUI - Homepage
-![GUI](./images/GUI_new.png)
+This repository is an application prototype, with existing source and assets retained for development.

@@ -15,7 +15,7 @@ SOURCES += \
     mainwindow.cpp \
     fileorganizer.cpp \
     fileshredder.cpp \
-    pathmanager.cpp \
+    PathManager.cpp \
     junkcleaner.cpp
 
 HEADERS += \
@@ -23,7 +23,7 @@ HEADERS += \
     mainwindow.h \
     fileorganizer.h \
     fileshredder.h \
-    pathmanager.h \
+    PathManager.h \
     junkcleaner.h
 
 FORMS += \
